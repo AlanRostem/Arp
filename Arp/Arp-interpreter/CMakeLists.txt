@@ -11,5 +11,8 @@ file(
 
 add_library(Arp_interpreter Library.c)
 
-target_include_directories(${PROJECT_NAME} PRIVATE Arp_language)
+target_include_directories(
+        ${PROJECT_NAME}
+        PUBLIC Arp_language
+)
 target_link_libraries(${PROJECT_NAME} Arp_language)
