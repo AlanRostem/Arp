@@ -9,10 +9,13 @@ file(
         *.c
 )
 
+add_subdirectory(../dependencies/pcre2 ../dependencies/../pcre2/cmake-build-debug)
+
 add_library(Arp_interpreter Library.c)
 
 target_include_directories(
         ${PROJECT_NAME}
         PUBLIC Arp_language
+        PRIVATE ../dependencies/pcre2/src
 )
 target_link_libraries(${PROJECT_NAME} Arp_language)
