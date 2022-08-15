@@ -3,4 +3,10 @@ project(Arp_language C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_library(Arp_language library.c Type.h)
+file(
+        GLOB_RECURSE
+        SOURCE_FILES
+        *.c
+)
+
+add_library(Arp_language Library.c)

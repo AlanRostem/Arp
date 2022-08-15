@@ -1,7 +1,9 @@
-#include "Arp-interpreter//library.h"
+#include "Arp-interpreter/Library.h"
+#include "Arp-language/TokenRegex.h"
 #include <stdio.h>
 
 int main() {
-    printf("%i", ArpInterpreter_interpretCode("Hello"));
+    printf("%i %c", ArpInterpreter_interpretCode("Hello"), '\n');
+    printf("%s", ARPLANG_TOKENREGEX_INT);
     return 0;
 }

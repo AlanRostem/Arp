@@ -14,6 +14,4 @@ enum ArpLang_TokenType {
     ARPLANG_TOKENTYPE_FUNCTION,
 };
 
-// static const char* ARPLANG_TOKENREGEX_INT = "[0-9]";
-
 #endif //ARP_TYPE_H
