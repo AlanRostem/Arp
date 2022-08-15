@@ -1,7 +1,7 @@
+#include "Arp-interpreter//library.h"
 #include <stdio.h>
-#include "Arp-language/library.h"
 
 int main() {
-    ArpLang_hello();
+    printf("%i", ArpInterpreter_interpretCode("Hello"));
     return 0;
 }
