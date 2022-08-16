@@ -19,5 +19,4 @@ target_include_directories(
         PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/dependencies/pcre2
 )
 
-target_link_libraries(${PROJECT_NAME} Arp_language)
-target_link_libraries(${PROJECT_NAME} PCRE2)
+target_link_libraries(${PROJECT_NAME} Arp_language PCRE2)
