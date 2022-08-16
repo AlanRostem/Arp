@@ -6,5 +6,6 @@
 #define ARP_TOKENREGEX_H
 
 const char* ARPLANG_TOKENREGEX_INT = "[0-9]";
+const char* ARPLANG_TOKENREGEX_LETTER = "[a-zA-Z]";
 
 #endif //ARP_TOKENREGEX_H
