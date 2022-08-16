@@ -15,7 +15,9 @@ add_library(Arp_interpreter Library.c)
 
 target_include_directories(
         ${PROJECT_NAME}
-        PUBLIC Arp_language
+        PUBLIC ../
         PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/dependencies/pcre2
 )
+
 target_link_libraries(${PROJECT_NAME} Arp_language)
+target_link_libraries(${PROJECT_NAME} PCRE2)
