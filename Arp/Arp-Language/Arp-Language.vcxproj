@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="Arp-Language.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Type.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arp-Language.c" />
