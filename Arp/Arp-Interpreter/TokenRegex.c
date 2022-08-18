@@ -20,7 +20,7 @@ pcre2_code_8* ArpInt_compile_pcre2_regex_for_token_matching(const char* regex_pa
     {
         char errMessage[200];
         pcre2_get_error_message_8(errorCode, errMessage, 200);
-        printf("ErrorCode in compile %i: %s", errorCode, errMessage);
+        printf("ErrorCode %i in regex compilation: %s", errorCode, errMessage);
         return NULL;
     }
 
