@@ -52,7 +52,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ArpLanguage\Arp.Language.csproj">
+    <ProjectReference Include="..\Arp.Language\Arp.Language.csproj">
       <Project>{d2da109f-2431-431b-a4b6-904a5eae6860}</Project>
       <Name>Arp.Language</Name>
     </ProjectReference>

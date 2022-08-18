@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Arp.Language;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,15 +21,16 @@ namespace Arp.Interpreter
         int _i;
 
         private TokenExpectMode _currentExpectMode;
+        private TokenMatcher _tokenMatcher;
 
         public Interpreter()
         {
-            _currentExpectMode = TokenExpectMode.ANYTHING;
+            _currentExpectMode = TokenExpectMode.WORD;
+            _tokenMatcher = new TokenMatcher();
         }
 
         public void InterpretArpCode(string code)
         {
-            Console.WriteLine(code);
             for (_i = 0; _i < code.Length; _i++)
             {
                 switch (_currentExpectMode)
@@ -36,6 +38,7 @@ namespace Arp.Interpreter
                     case TokenExpectMode.ANYTHING:
                         break;
                     case TokenExpectMode.WORD:
+                        ExpectWord(code);
                         break;
                     case TokenExpectMode.EXPRESSION:
                         break;
@@ -49,7 +52,35 @@ namespace Arp.Interpreter
 
         private void ExpectWord(string code)
         {
+            bool isVarChar = _tokenMatcher.IsValidVarChar(code[_i]);
+            if (!isVarChar)
+            {
+                // printf("Incorrect expect start: %c\n", code[i]);
+                return;
+            }
 
+            // Count the word size
+            var currentWordSize = 0;
+            while (isVarChar)
+            {
+                currentWordSize++;
+                isVarChar = _tokenMatcher.IsValidVarChar(code[_i + currentWordSize]);
+            }
+
+            var word = "";
+
+            for (int j = 0; j < currentWordSize; j++)
+            {
+                word += code[j + _i];
+            }
+
+            string possibleKeyword = Keywords.Var;
+            if (word == possibleKeyword)
+            {
+                Console.WriteLine("Found a keyword in the code: " + word);
+            }
+
+            _i += currentWordSize;
         }
     }
 }
