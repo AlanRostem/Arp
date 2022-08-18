@@ -25,7 +25,7 @@ int ArpInterpreter_interpretCode(const char* code, uint64_t length)
         return 0;
     }
 
-    pcre2_match_context_8* matchCtx = pcre2_match_context_8_create(NULL);
+    // pcre2_match_data_8* matchData = pcre2_match_data_create();
 
     for (uint64_t i = 0; i < length; i++)
     {
