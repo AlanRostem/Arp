@@ -1,6 +1,3 @@
 [submodule "Arp/dependencies/pcre2"]
 	path = Arp/dependencies/pcre2
 	url = https://github.com/PCRE2Project/pcre2.git
-[submodule "Arp/dependencies/pcre2-win-build"]
-	path = Arp/dependencies/pcre2-win-build
-	url = https://github.com/kiyolee/pcre2-win-build
