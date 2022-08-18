@@ -7,38 +7,30 @@
 #include "../Arp-Language/Arp-Language.h"
 #include "TokenRegex.h"
 
-int ArpInterpreter_interpretCode(const char* code, uint64_t length)
+void ArpInt_initialize()
+{
+    ArpInt_initialize_token_regex_library();
+}
+
+int ArpInt_interpret_code(const char* code, uint64_t length)
 {
     // TODO: Consider naming this function "tokenize" or make a tokenizer module within the library
 
-    PCRE2_SPTR8 regex = ARPLANG_TOKENREGEX_LETTER;
-    int errorCode;
-    PCRE2_SIZE errOffset;
-    pcre2_compile_context* context = pcre2_compile_context_create(NULL);
-    pcre2_code_8* re = pcre2_compile_8(regex, strlen(regex), 0, &errorCode, &errOffset, context);
-
-    if (errorCode != 100)
-    {
-        char errMessage[200];
-        pcre2_get_error_message(errorCode, errMessage, 200);
-        printf("ErrorCode in compile %i: %s", errorCode, errMessage);
-        return 0;
-    }
-
-    // pcre2_match_data_8* matchData = pcre2_match_data_create();
+    pcre2_code_8* re = ArpInt_compile_pcre2_regex_for_token_matching("[a-zA-z]", 8);
 
     for (uint64_t i = 0; i < length; i++)
     {
         char currentChar = code[i];
-        int err = pcre2_match(re, &currentChar, 1, 0, PCRE2_ANCHORED, NULL, NULL);
-        if (err == 100) {
-            printf("%c", currentChar);
-        }
-        else 
+        int result = ArpInt_match_pcre2_regex_single_char(re, currentChar);
+        switch (result)
         {
-            char errMessage[200];
-            pcre2_get_error_message(err, errMessage, 200);
-            printf("ErrorCode in match %i: %s\n", err, errMessage);
+        case 1:
+            printf("%c", currentChar);
+            break;
+        case -1:
+            break;
+        default:
+            break;
         }
     }
 
@@ -47,6 +39,8 @@ int ArpInterpreter_interpretCode(const char* code, uint64_t length)
 
 int main(int argCount, char* argValues)
 {
+    ArpInt_initialize();
+
     FILE* codeFile = 0;
     char* rawText;
     long size;
@@ -66,7 +60,7 @@ int main(int argCount, char* argValues)
     fread(rawText, sizeof(char), size, codeFile);
     fclose(codeFile);
 
-    ArpInterpreter_interpretCode(rawText, size);
+    ArpInt_interpret_code(rawText, size);
 
 	return 0;
 }

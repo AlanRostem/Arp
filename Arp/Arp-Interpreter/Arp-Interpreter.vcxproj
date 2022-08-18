@@ -138,6 +138,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.c" />
+    <ClCompile Include="TokenRegex.c" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Arp-Language\Arp-Language.vcxproj">
