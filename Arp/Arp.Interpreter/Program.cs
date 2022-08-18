@@ -11,13 +11,12 @@ namespace Arp.Interpreter
     {
         static void Main(string[] args)
         {
-
             var code = File.ReadAllText("../../../TestFiles/functions.arp");
 
             var interpreter = new Interpreter();
             interpreter.InterpretArpCode(code);
 
-            while (true) ;
+            while (true);
         }
     }
 }

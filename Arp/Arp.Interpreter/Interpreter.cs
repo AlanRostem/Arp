@@ -17,6 +17,8 @@ namespace Arp.Interpreter
             NUMBER_LITERAL,
         }
 
+        int _i;
+
         private TokenExpectMode _currentExpectMode;
 
         public Interpreter()
@@ -27,19 +29,27 @@ namespace Arp.Interpreter
         public void InterpretArpCode(string code)
         {
             Console.WriteLine(code);
-            switch (_currentExpectMode)
+            for (_i = 0; _i < code.Length; _i++)
             {
-                case TokenExpectMode.ANYTHING:
-                    break;
-                case TokenExpectMode.WORD:
-                    break;
-                case TokenExpectMode.EXPRESSION:
-                    break;
-                case TokenExpectMode.STRING_LITERAL:
-                    break;
-                case TokenExpectMode.NUMBER_LITERAL:
-                    break;
+                switch (_currentExpectMode)
+                {
+                    case TokenExpectMode.ANYTHING:
+                        break;
+                    case TokenExpectMode.WORD:
+                        break;
+                    case TokenExpectMode.EXPRESSION:
+                        break;
+                    case TokenExpectMode.STRING_LITERAL:
+                        break;
+                    case TokenExpectMode.NUMBER_LITERAL:
+                        break;
+                }
             }
+        }
+
+        private void ExpectWord(string code)
+        {
+
         }
     }
 }
