@@ -10,6 +10,7 @@ static pcre2_match_data_8* matchData;
 
 static pcre2_code_8* ArpInt_LetterRegexPattern;
 static pcre2_code_8* ArpInt_NumberRegexPattern;
+static pcre2_code_8* ArpInt_VarCharRegexPattern;
 
 pcre2_code_8* ArpInt_compile_pcre2_regex_for_token_matching(const char* regex_pattern);
 int ArpInt_match_pcre2_regex_single_char(pcre2_code_8* regex, char character);
@@ -19,12 +20,18 @@ bool_t ArpInt_initialize_token_regex_library()
 
     ArpInt_LetterRegexPattern = ArpInt_compile_pcre2_regex_for_token_matching("[a-zA-z]");
     ArpInt_NumberRegexPattern = ArpInt_compile_pcre2_regex_for_token_matching("[0-9]");
+    ArpInt_VarCharRegexPattern = ArpInt_compile_pcre2_regex_for_token_matching("^[a-zA-Z_$][a-zA-Z_$0-9]*$");
 
     matchData = pcre2_match_data_create_8(1, NULL);
     return bTrue;
 }
 
 bool_t ArpInt_is_letter(char character)
+{
+    return ArpInt_match_pcre2_regex_single_char(ArpInt_LetterRegexPattern, character) == 1;
+}
+
+bool_t ArpInt_is_valid_varchar(char character)
 {
     return ArpInt_match_pcre2_regex_single_char(ArpInt_LetterRegexPattern, character) == 1;
 }

@@ -6,6 +6,7 @@
 
 #include "Arp-Language.h"
 #include "TokenRegex.h"
+#include "KeyWords.h"
 
 typedef enum {
     ARPINT_TOKEN_EXPECT_MODE_ANYTHING,
@@ -27,12 +28,49 @@ void ArpInt_initialize()
     ArpInt_initialize_token_regex_library();
 }
 
-void ArpInt_expect_word(char character)
+void ArpInt_expect_word(char* code, uint64_t* current_position)
 {
+    const uint64_t i = *current_position;
+    
+    bool_t is_varchar = ArpInt_is_valid_varchar(code[i]);
+    if (!is_varchar)
+    {
+        // printf("Incorrect expect start: %c\n", code[i]);
+        return;
+    }
 
+    // Count the word size
+    uint64_t current_word_size = 0;
+    while (is_varchar)
+    {
+        current_word_size++;
+        is_varchar = ArpInt_is_valid_varchar(code[i + current_word_size]);
+    }
+
+    char* word = malloc(current_word_size + 1);
+    if (word == NULL)
+    {
+        printf("malloc error\n");
+        (*current_position) += current_word_size;
+        return;
+    }
+
+    for (uint64_t j = 0; j < current_word_size; j++)
+    {
+        word[j] = code[j + i];
+    }
+    word[current_word_size] = 0;
+
+    const char* possible_keyword = ARPLANG_KEYWORD_VAR;
+    if (!strcmp(word, possible_keyword))
+    {
+        printf("Found a keyword in the code: %s\n", word);
+    }
+
+    (*current_position) += current_word_size;
 }
 
-int ArpInt_interpret_code(const char* code, uint64_t length)
+int ArpInt_interpret_code(char* code, uint64_t length)
 {
     // TODO: Consider naming this function "tokenize" or make a tokenizer module within the library
 
@@ -42,7 +80,7 @@ int ArpInt_interpret_code(const char* code, uint64_t length)
         switch (current_expect_mode) 
         {
         case ARPINT_TOKEN_EXPECT_MODE_WORD:
-            ArpInt_expect_word(current_char);
+            ArpInt_expect_word(code, &i);
             break;
         }        
     }
