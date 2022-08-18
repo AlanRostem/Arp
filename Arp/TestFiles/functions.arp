@@ -1,0 +1,6 @@
+print(3)
+
+function sayHello() {
+    print("Hello")
+    var x = 0
+}

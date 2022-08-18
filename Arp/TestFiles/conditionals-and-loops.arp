@@ -1,0 +1,25 @@
+if (3 > 0) {
+
+}
+
+if (0 != 0) {
+
+} else {
+
+}
+
+if (true)
+    var x = 0
+else
+    var y = 2
+
+if (false)
+    var z = 22
+else if (true)
+    var g = 12
+
+if (false) {
+
+} else if (true) {
+
+}
