@@ -4,34 +4,47 @@
 #define PCRE2_CODE_UNIT_WIDTH 8
 #include <pcre2.h>
 
-#include "../Arp-Language/Arp-Language.h"
+#include "Arp-Language.h"
 #include "TokenRegex.h"
+
+typedef enum {
+    ARPINT_TOKEN_EXPECT_MODE_ANYTHING,
+    ARPINT_TOKEN_EXPECT_MODE_WORD,
+    ARPINT_TOKEN_EXPECT_MODE_EXPRESSION,
+    ARPINT_TOKEN_EXPECT_MODE_STR_LITERAL,
+    ARPINT_TOKEN_EXPECT_MODE_NUMBER_LITERAL,
+} ArpInt_TokenExpectMode;
+
+typedef enum {
+    ARPINT_EXPECTERRCODE_OK,
+    ARPINT_EXPECTERRCODE_UNEXPECTED_TOKEN,
+} ArpInt_ExpectErrorCode;
+
+static ArpInt_TokenExpectMode current_expect_mode = ARPINT_TOKEN_EXPECT_MODE_WORD;
 
 void ArpInt_initialize()
 {
     ArpInt_initialize_token_regex_library();
 }
 
+void ArpInt_expect_word(char character)
+{
+
+}
+
 int ArpInt_interpret_code(const char* code, uint64_t length)
 {
     // TODO: Consider naming this function "tokenize" or make a tokenizer module within the library
 
-    pcre2_code_8* re = ArpInt_compile_pcre2_regex_for_token_matching("[a-zA-z]", 8);
-
     for (uint64_t i = 0; i < length; i++)
     {
-        char currentChar = code[i];
-        int result = ArpInt_match_pcre2_regex_single_char(re, currentChar);
-        switch (result)
+        char current_char = code[i];
+        switch (current_expect_mode) 
         {
-        case 1:
-            printf("%c", currentChar);
+        case ARPINT_TOKEN_EXPECT_MODE_WORD:
+            ArpInt_expect_word(current_char);
             break;
-        case -1:
-            break;
-        default:
-            break;
-        }
+        }        
     }
 
     return 1;
