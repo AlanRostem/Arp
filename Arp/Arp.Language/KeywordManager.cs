@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ArpLanguage
+namespace Arp.Language
 {
     public class TokenStringManager
     {
@@ -48,7 +48,33 @@ namespace ArpLanguage
     {
         public KeywordManager()
         {
+            AddTokenString(Keywords.Break);
+            AddTokenString(Keywords.Case);
+            AddTokenString(Keywords.Catch);
+            AddTokenString(Keywords.Const);
+            AddTokenString(Keywords.Continue);
+            AddTokenString(Keywords.Default);
+            AddTokenString(Keywords.Do);
+            AddTokenString(Keywords.Else);
+            AddTokenString(Keywords.Enum);
+            AddTokenString(Keywords.False);
+            AddTokenString(Keywords.Finally);
+            AddTokenString(Keywords.For);
+            AddTokenString(Keywords.Function);
+            AddTokenString(Keywords.If);
+            AddTokenString(Keywords.Import);
+            AddTokenString(Keywords.In);
+            AddTokenString(Keywords.New);
+            AddTokenString(Keywords.Null);
+            AddTokenString(Keywords.Return);
+            AddTokenString(Keywords.Switch);
+            AddTokenString(Keywords.Table);
+            AddTokenString(Keywords.This);
+            AddTokenString(Keywords.Throw);
+            AddTokenString(Keywords.True);
+            AddTokenString(Keywords.Try);
             AddTokenString(Keywords.Var);
+            AddTokenString(Keywords.While);
         }
     }
 }

@@ -1,9 +1,5 @@
 ﻿using Arp.Language;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Arp.Interpreter
 {
@@ -21,12 +17,14 @@ namespace Arp.Interpreter
         int _i;
 
         private TokenExpectMode _currentExpectMode;
-        private TokenMatcher _tokenMatcher;
+        private CharValidator _charValidator;
+        private KeywordManager _keywordManager;
 
         public Interpreter()
         {
             _currentExpectMode = TokenExpectMode.WORD;
-            _tokenMatcher = new TokenMatcher();
+            _charValidator = new CharValidator();
+            _keywordManager = new KeywordManager();
         }
 
         public void InterpretArpCode(string code)
@@ -52,7 +50,7 @@ namespace Arp.Interpreter
 
         private void ExpectWord(string code)
         {
-            bool isVarChar = _tokenMatcher.IsValidVarChar(code[_i]);
+            bool isVarChar = _charValidator.IsValidVarChar(code[_i]);
             if (!isVarChar)
             {
                 // printf("Incorrect expect start: %c\n", code[i]);
@@ -64,7 +62,7 @@ namespace Arp.Interpreter
             while (isVarChar)
             {
                 currentWordSize++;
-                isVarChar = _tokenMatcher.IsValidVarChar(code[_i + currentWordSize]);
+                isVarChar = _charValidator.IsValidVarChar(code[_i + currentWordSize]);
             }
 
             var word = "";
@@ -74,8 +72,7 @@ namespace Arp.Interpreter
                 word += code[j + _i];
             }
 
-            string possibleKeyword = Keywords.Var;
-            if (word == possibleKeyword)
+            if (_keywordManager.IsMatchedToken(word))
             {
                 Console.WriteLine("Found a keyword in the code: " + word);
             }

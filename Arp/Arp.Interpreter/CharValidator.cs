@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Arp.Interpreter
 {
-    public class TokenMatcher
+    public class CharValidator
     {
         private Regex _letterRegex;
         private Regex _numberRegex;
         private Regex _varcharRegex;
 
-        public TokenMatcher()
+        public CharValidator()
         {
             _letterRegex = new Regex("[a-zA-Z]");
             _numberRegex = new Regex("[0-9]");
