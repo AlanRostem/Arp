@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Arp.Language;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,20 @@ namespace ArpLanguage
     {
         private HashSet<string> _tokens = new HashSet<string>();
 
-        public List<string> PossibleTokenMatch(string subStr)
+        public bool IsMatchedToken(string str)
+        {
+            foreach(string token in PossibleMatchedTokens(str))
+            {
+                if (str == token)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public List<string> PossibleMatchedTokens(string subStr)
         {
             var list = new List<string>();
             foreach (var token in _tokens)
@@ -34,7 +48,7 @@ namespace ArpLanguage
     {
         public KeywordManager()
         {
-
+            AddTokenString(Keywords.Var);
         }
     }
 }
